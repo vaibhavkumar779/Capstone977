@@ -87,4 +87,14 @@ pipeline {
     
 
   }
+  post{
+
+        success{
+            archiveArtifacts allowEmptyArchive: true, artifacts: '**/*.whl', onlyIfSuccessful: true
+            cleanWs()
+        }
+        always{
+            sh 'docker logout'
+        }
+    }
 } 
