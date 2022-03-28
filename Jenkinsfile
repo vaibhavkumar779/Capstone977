@@ -38,6 +38,10 @@ pipeline {
       //    """
       //}
     }
+
+    stage(" build image archive"){
+      sh "python3 -m build"
+    }
     
     stage("building docker image"){
 
