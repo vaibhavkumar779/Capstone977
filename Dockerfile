@@ -17,6 +17,6 @@ RUN pip3 install -r /home/requirements.txt
 
 
 EXPOSE 3000 5050
-RUN cd app
-CMD ["gunicorn"  , "-b", "0.0.0.0:8000", "app"]
+
+CMD ["python3", "app.py"]
                                         
