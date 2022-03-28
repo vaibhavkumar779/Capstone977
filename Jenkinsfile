@@ -2,12 +2,9 @@ pipeline {
   agent any
    environment {
       dockerhub=credentials('dockerhub')
-      String payload = "${payload}"
-      def jsonObject = readJSON text: payload
-      String gitHash = "${jsonObject.pull_request.head.sha}"
+      
 
-      String buildUrl = "${BUILD_URL}"
-      String gitStatusPostUrl = "https://<Github Personal Access Token>:x-oauth-basic@api.github.com/repos/vaibhavkumar779/Capstone977/statuses/${gitHash}"
+      
    }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
@@ -19,7 +16,12 @@ pipeline {
 
     stage('Checkout') {
       steps {
+        script {
+          String payload = "${payload}"
+          def jsonObject = readJSON text: payload
+          String gitHash = "${jsonObject.pull_request.head.sha}"
         sh "git checkout ${gitHash}"
+        }
       }
     }
 
@@ -106,9 +108,13 @@ pipeline {
           cleanWs()
         }
         always{
+          script {
+          String buildUrl = "${BUILD_URL}"
+          String gitStatusPostUrl = "https://<Github Personal Access Token>:x-oauth-basic@api.github.com/repos/vaibhavkumar779/Capstone977/statuses/${gitHash}"
           sh """
             curl -X POST -H "application/json" -d '{"state":"success", "target_url":"${buildUrl}", "description":"Build Success", "context":"build/job"}' "${gitStatusPostUrl}"
             """
+          }
         }
     }
 } 
