@@ -1,0 +1,5 @@
+- name: Add entry into repository
+  apt_repository:
+    filename: "{{ jenkins.name }}"
+    repo: "{{ jenkins.url }}"
+    state: present

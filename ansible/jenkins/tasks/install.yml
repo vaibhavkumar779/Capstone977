@@ -1,0 +1,7 @@
+- name: Update repository and install jenkins and java
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  loop: 
+    - openjdk-11-jdk
+    - jenkins

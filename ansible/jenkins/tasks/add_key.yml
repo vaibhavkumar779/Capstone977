@@ -1,0 +1,4 @@
+- name: Add Jenkins apt repository key for jenkins
+  apt_key:
+    state: present
+    url: "{{ jenkins_key }}"
