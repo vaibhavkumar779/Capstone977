@@ -4,7 +4,7 @@ metadata:
   name: mail-app
   namespace: vaibhav
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: mail-app
@@ -18,6 +18,8 @@ spec:
       - name: mail
         image: vaibhavkuma779/flaskappcapstone:latest
         imagePullPolicy: Always
+        ports:
+        - containerPort: 5050
         env:
           - name: DB_PORT_27017_TCP_ADDR
             value: "mongodb-0.mongodb"
