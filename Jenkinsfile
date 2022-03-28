@@ -41,9 +41,9 @@ pipeline {
     
     stage("building docker image"){
 
-      when {
-        branch 'dev'
-      }
+      // when {
+      //   branch 'dev'
+      // }
 
       steps{
         sh 'docker build -t capstone:${GIT_COMMIT} .'
@@ -53,9 +53,9 @@ pipeline {
 
     stage("Pushing the docker image"){
 
-      when {
-        branch 'dev'
-      }
+      // when {
+      //   branch 'dev'
+      // }
 
       steps{
         sh 'echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin'
@@ -68,9 +68,9 @@ pipeline {
 
     stage("Deploying"){
 
-      when {
-        branch 'dev'
-      }
+      // when {
+      //   branch 'dev'
+      // }
       
       steps{
         
