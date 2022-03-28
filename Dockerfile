@@ -1,5 +1,5 @@
 FROM centos:latest
-COPY WEB_APP mail
+COPY app mail
 WORKDIR mail
 ARG USERNAME=vk
 ARG USER_UID=1000
