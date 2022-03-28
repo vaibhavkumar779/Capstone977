@@ -13,4 +13,3 @@ spec:
   ports:
   - port: 1234
     targetPort: 5050
-    nodePort: 32000
