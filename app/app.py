@@ -86,7 +86,7 @@ def OTP():
         if passwd_email: 
             name = passwd_email['name']
             global otp
-            #otp = OTP_Sender.otp_sender(email, name)
+            otp = OTP_Sender.otp_sender(email, name)
             #print(otp)
             return render_template("otp.html")
         else:
