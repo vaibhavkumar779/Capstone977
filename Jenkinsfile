@@ -76,6 +76,8 @@ pipeline {
         
         withKubeConfig([credentialsId: 'kubernetes']){
           sh 'pwd && ls'
+          sh 'kubectl delete namespace vaibhav'
+          sh 'kubectl create namespace vaibhav'
           sh 'kubectl apply -f kubernetes/mongodb/mongodb.yml'
           sh 'kubectl apply -f kubernetes/app/deployment.yml'
           sh 'kubectl apply -f kubernetes/app/nodeport.yml'
