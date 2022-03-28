@@ -11,5 +11,5 @@ spec:
     app: mail-app
     db: mongodb
   ports:
-  - port: 1234
+  - port: 5050
     targetPort: 5050
