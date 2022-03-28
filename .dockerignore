@@ -1,0 +1,17 @@
+!README*.md
+.gitignore
+.dockerignore
+Dockerfile
+env/
+__pycache__/
+.pytest_cache/
+tests/__pycache__/
+app.egg-info/
+app/__pycache__/*
+.git 
+setup.py
+pyproject.toml
+MANIFEST.in
+Jenkinsfile
+tests/
+ansible/
