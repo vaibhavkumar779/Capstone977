@@ -106,7 +106,7 @@ pipeline {
       sh 'curl -X POST --user $USERNAME:$PASSWORD --data  "{\\"state\\": \\"failure\\"}" --url $GITHUB_API_URL/statuses/$GIT_COMMIT'
     }
   }
-  }
+  
         
     }
 } 
