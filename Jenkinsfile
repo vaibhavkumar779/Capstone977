@@ -14,20 +14,13 @@ pipeline {
   
   stages {  
 
-    stage('Checkout') {
-      steps {
-        script {
-          String payload = "${payload}"
-          def jsonObject = readJSON text: payload
-          String gitHash = "${jsonObject.pull_request.head.sha}"
-        sh "git checkout ${gitHash}"
-        }
-      }
-    }
+
 
     stage('Setup') { 
       steps {
-          sh " pip3 install -r requirements.txt "
+        echo 'BRANCH NAME: ' + env.BRANCH_NAME
+        echo sh(returnStdout: true, script: 'env')
+        sh " pip3 install -r requirements.txt "
       }
     }
     
@@ -107,14 +100,6 @@ pipeline {
           archiveArtifacts allowEmptyArchive: true, artifacts: '**/*.whl', onlyIfSuccessful: true
           cleanWs()
         }
-        always{
-          script {
-          String buildUrl = "${BUILD_URL}"
-          String gitStatusPostUrl = "https://<Github Personal Access Token>:x-oauth-basic@api.github.com/repos/vaibhavkumar779/Capstone977/statuses/${gitHash}"
-          sh """
-            curl -X POST -H "application/json" -d '{"state":"success", "target_url":"${buildUrl}", "description":"Build Success", "context":"build/job"}' "${gitStatusPostUrl}"
-            """
-          }
-        }
+        
     }
 } 
