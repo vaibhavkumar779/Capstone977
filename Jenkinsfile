@@ -56,7 +56,7 @@ pipeline {
     stage("building docker image"){
 
       when {
-        branch 'dev'
+        branch 'main'
       }
 
       steps{
@@ -68,7 +68,7 @@ pipeline {
     stage("Pushing the docker image"){
 
       when {
-        branch 'dev'
+        branch 'main'
       }
 
       steps{
@@ -83,7 +83,7 @@ pipeline {
     stage("Deploying"){
 
       when {
-        branch 'dev'
+        branch 'main'
       }
       
       steps{
