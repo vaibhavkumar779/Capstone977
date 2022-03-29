@@ -2,7 +2,7 @@ pipeline {
   agent any
    environment {
       dockerhub=credentials('dockerhub')
-      GITHUB_API_URL='https://api.github.com/users/vaibhavkumar779/Capstone977'      
+      GITHUB_API_URL='https://api.github.com/repos/vaibhavkumar779/Capstone977'      
    }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
