@@ -98,11 +98,7 @@ pipeline {
           archiveArtifacts allowEmptyArchive: true, artifacts: '**/*.whl', onlyIfSuccessful: true
           cleanWs()
     withCredentials([usernamePassword(credentialsId: 'GiThubID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-      sh """curl \
-  -X POST \
-  -H "Accept: application/vnd.github.v3+json" \
-  https://api.github.com/repos/vaibhavkumar779/Capstone977/statuses/SHA \
-  -d '{"state":"state"} """
+      sh 'curl -X POST -H "Accept: application/vnd.github.v3+json" $GITHUB_API_URL/statuses/$GIT_COMMIT -d '{"state":"state"} '
     }
   }
   failure {
