@@ -1,3 +1,13 @@
+void setBuildStatus(String message, String state) {
+  step([
+      $class: "GitHubCommitStatusSetter",
+      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/my-org/my-repo"],
+      contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
+      errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+      statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+  ]);
+}
+...
 pipeline {
   agent any
    environment {
@@ -97,13 +107,10 @@ pipeline {
         success{
           archiveArtifacts allowEmptyArchive: true, artifacts: '**/*.whl', onlyIfSuccessful: true
           cleanWs()
-    withCredentials([usernamePassword(credentialsId: 'GiThubID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-      sh 'curl -X POST --user $USERNAME:$PASSWORD --data  "{\\"state\\": \\"success\\"}" --url $GITHUB_API_URL/statuses/$GIT_COMMIT'
+    setBuildStatus("Build succeeded", "SUCCESS");
     }
-  }
-  failure {
-    withCredentials([usernamePassword(credentialsId: 'GiThubID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-      sh 'curl -X POST --user $USERNAME:$PASSWORD --data  "{\\"state\\": \\"failure\\"}" --url $GITHUB_API_URL/statuses/$GIT_COMMIT'
+    failure {
+        setBuildStatus("Build failed", "FAILURE");
     }
   }
   
