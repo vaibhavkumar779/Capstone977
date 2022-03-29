@@ -2,7 +2,7 @@ pipeline {
   agent any
    environment {
       dockerhub=credentials('dockerhub')
-      GITHUB_API_URL='https://api.github.com/repos/vaibhavkumar779/Capstone977'      
+      GITHUB_API_URL='https://api.github.com/users/vaibhavkumar779/repos/vaibhavkumar779/Capstone977'      
    }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
@@ -98,13 +98,14 @@ pipeline {
           archiveArtifacts allowEmptyArchive: true, artifacts: '**/*.whl', onlyIfSuccessful: true
           cleanWs()
     withCredentials([usernamePassword(credentialsId: 'GiThubID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-      sh 'curl -X POST -H "Accept: application/vnd.github.v3+json" $GITHUB_API_URL/statuses/$GIT_COMMIT --data "{\\"state\\":\\"state\\"} '
+      sh 'curl -X POST --user $USERNAME:$PASSWORD --data  "{\\"state\\": \\"success\\"}" --url $GITHUB_API_URL/statuses/$GIT_COMMIT'
     }
   }
   failure {
-    withCredentials([usernamePassword(credentialsId: 'your_credentials_id', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+    withCredentials([usernamePassword(credentialsId: 'GiThubID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
       sh 'curl -X POST --user $USERNAME:$PASSWORD --data  "{\\"state\\": \\"failure\\"}" --url $GITHUB_API_URL/statuses/$GIT_COMMIT'
     }
+  }
   }
         
     }
