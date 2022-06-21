@@ -9,6 +9,8 @@ RUN yum install httpd -y
 RUN yum install python3 -y
 RUN set -ex \
 	 	expat-dev 
+RUN apk add --update expat=0:2.2.5-4.el8_5.3 
+
 COPY requirements.txt /home
 RUN pip3 install -r /home/requirements.txt
 
