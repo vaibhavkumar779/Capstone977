@@ -4,3 +4,4 @@ validate_email
 bcrypt
 pymongo[srv]
 pytz
+werkzeug>=2.2.3 # not directly required, pinned by Snyk to avoid a vulnerability
